@@ -40,8 +40,12 @@ class HaloScans(object):
     def __iter__(self):
         """Yields scans one at a time. Forever."""
         while True:
-            for scan in self.get_next_batch():
-                yield scan
+            scans = self.get_next_batch()
+            if scans:
+                for scan in scans:
+                    yield scan
+            else:
+                yield []
 
     def build_halo_session(self):
         """Instantiates the Halo session"""
